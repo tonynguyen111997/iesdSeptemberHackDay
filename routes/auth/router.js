@@ -8,11 +8,15 @@ module.exports = app => {
     const { username } = req.body;
     console.log("TEST");
 
-    axios.get(`https://api.github.com//repos/${username}/portfolio/languages`)
+    axios.get(`https://api.github.com/users/${username}/repos`)
     .then(response => {
-      res.json(response);
-    });
-  })
+      console.log(response);
+      res.json(response.data);
+    })
+    .catch(err => {
+      res.send(err);
+    })
+  });
 
   // app.post("/oauth", (req, res) => {
   //   const requestToken = req.query.code;
