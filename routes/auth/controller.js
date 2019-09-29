@@ -3,7 +3,7 @@ const User = require("../../models/User");
 const { genJwt } = require("../../utils/jwt");
 
 const register = (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, githubUsername } = req.body;
 
   User.findOne({ email }, async (err, foundUser) => {
     if (err) return next(boom.serverUnavailable("Error finding user."));
@@ -14,7 +14,8 @@ const register = (req, res, next) => {
     const user = new User({
       email,
       password,
-      name
+      name,
+      githubUsername
     });
 
     return user.save(error => {

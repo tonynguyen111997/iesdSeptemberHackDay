@@ -25,6 +25,10 @@ const userSchema = new Schema({
     type: String,
     require: true,
     minlength: 2
+  },
+  githubUsername: {
+    type: String,
+    require: true
   }
 });
 
