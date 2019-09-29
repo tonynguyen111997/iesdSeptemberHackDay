@@ -7,6 +7,7 @@ import Landing from "../../components/pages/Landing/Landing";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Dashboard from "../Dashboard/Dashboard";
+import Charts from "../Charts/Charts";
 
 import { API_signin, API_register } from "../../requests/requests";
 
@@ -54,6 +55,7 @@ export default class App extends Component {
       <Router history={history}>
         <Route path="/" exact component={Landing} />
         <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/charts" exact component={Charts} />
         <Route
           path="/login"
           exact
