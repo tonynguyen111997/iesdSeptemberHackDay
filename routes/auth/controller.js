@@ -1,4 +1,5 @@
 const boom = require("@hapi/boom");
+const axios = require("axios");
 const User = require("../../models/User");
 const { genJwt } = require("../../utils/jwt");
 
@@ -26,4 +27,88 @@ const register = (req, res, next) => {
   });
 };
 
-module.exports = { register };
+const getGitHubUser = (req, res, next) => {
+  const { username } = req.body;
+  axios.get(`https://api.github.com/users/${username}`).then(response => {
+    const { login, name, location, bio, avatar_url } = response.data;
+    const data = {
+      login,
+      name,
+      location,
+      bio,
+      avatar_url
+    };
+    res.json(data);
+  });
+};
+
+const getGitHubRepos = (req, res, next) => {
+  const { username } = req.body;
+
+  axios
+    .get(`https://api.github.com/users/${username}/repos`)
+    .then(response => {
+      // res.json(response.data.language);
+      return response.data.map(repo => {
+        const project = {
+          repoName: repo.name,
+          topLanguage: repo.language
+        };
+        return project;
+      });
+    })
+    .then(response => {
+      console.log("username", username);
+      User.findOne({ githubUsername: username })
+        .then(user => {
+          console.log("USER", user);
+          if (!user) res.send("No user found");
+
+          user.Repos = response;
+          user.save();
+          res.send(response);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    })
+    .catch(err => {
+      res.send(err);
+    });
+};
+
+const getUserInfo = (req, res, next) => {
+  const { username } = req.params;
+  User.findOne({ githubUsername: username }).then(user => {
+    const { name, Repos, email, githubUsername, avatar_url } = user;
+    res.json({
+      name,
+      Repos,
+      email,
+      githubUsername,
+      avatar_url
+    });
+  });
+};
+
+const getUserInfoEmail = (req, res, next) => {
+  const { userEmail } = req.params;
+  User.findOne({ email: userEmail }).then(user => {
+    const { name, Repos, email, githubUsername, avatar_url } = user;
+    res.json({
+      name,
+      Repos,
+      email,
+      githubUsername,
+      avatar_url
+    });
+  });
+};
+
+module.exports = {
+  register,
+  getGitHubUser,
+  getGitHubRepos,
+  getUserInfo,
+  getUserInfoEmail
+};
