@@ -4,6 +4,7 @@ import {
     CardTitle, CardSubtitle, Button,
     Container, Row, Col
 } from 'reactstrap';
+import axios from 'axios';
 // import DemoNavbar from "";
 
 
@@ -13,10 +14,17 @@ export default class ProfilePage extends React.Component {
     super(props);
   }
 
+  submitUsername = (e) => {
+      e.preventDefault();
+      const userInput = document.getElementById("usernameInput");
+      axios.post("localhost:5000/dashboard", {
+          username: userInput.value
+      }).then(response => {
+          console.log(response);
+      })
+  }
+
   render() {
-    // const {
-    //   this.props,
-    // } = this;
 
     console.log(this.props.login);
     console.log(this.props.name);
@@ -126,6 +134,10 @@ export default class ProfilePage extends React.Component {
                          <i className="ni education_hat mr-2" />
                        </div>
                      </div>
+                     <form>
+                         <input type="text" id="usernameInput" placeholder="GitHub Username" />
+                         <input type="submit" onClick={this.submitUsername}/>
+                     </form>
                      <div className="mt-5 py-5 border-top text-center">
                        <Row className="justify-content-center">
                          <Col lg="9">
