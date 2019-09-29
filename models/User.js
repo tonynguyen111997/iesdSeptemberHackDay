@@ -29,6 +29,9 @@ const userSchema = new Schema({
   githubUsername: {
     type: String,
     require: true
+  },
+  Repos: {
+    type: [Object]
   }
 });
 
