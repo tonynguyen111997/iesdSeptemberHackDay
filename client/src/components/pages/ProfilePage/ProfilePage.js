@@ -16,7 +16,8 @@ export default class ProfilePage extends React.Component {
         bio: "",
         location: "",
         login: "",
-        name: ""
+        name: "",
+        avatar_url: props.avatar_url
     }
   }
 
@@ -34,7 +35,8 @@ export default class ProfilePage extends React.Component {
               bio,
               location,
               login,
-              name
+              name,
+              avatar_url
           })
       })
   }
@@ -86,7 +88,7 @@ export default class ProfilePage extends React.Component {
                              <img
                                alt="..."
                                className="rounded-circle"
-                               src={this.props.avatar_url}
+                               src={this.state.avatar_url}
                              />
                          </div>
                        </Col>
@@ -95,24 +97,7 @@ export default class ProfilePage extends React.Component {
                          lg="4"
                        >
                          <div className="card-profile-actions py-4 mt-lg-0">
-                           <Button
-                             className="mr-4"
-                             color="info"
-                             href="#"
-                             onClick={e => e.preventDefault()}
-                             size="sm"
-                           >
-                             Connect
-                           </Button>
-                           <Button
-                             className="float-right"
-                             color="default"
-                             href="#"
-                             onClick={e => e.preventDefault()}
-                             size="sm"
-                           >
-                             Message
-                           </Button>
+        
                          </div>
                        </Col>
                        {/* <Col className="order-lg-1" lg="4">
