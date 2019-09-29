@@ -7,5 +7,7 @@ module.exports = app => {
 
   app.post("/dashboard", authController.getGitHubUser);
 
-  app.get("/api/:username", authController.getUserInfo);
+  app.get("/api/user/:username", authController.getUserInfo);
+
+  app.get("/api/email/:userEmail", authController.getUserInfoEmail);
 };
