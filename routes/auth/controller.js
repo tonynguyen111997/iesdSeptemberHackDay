@@ -30,12 +30,13 @@ const register = (req, res, next) => {
 const getGitHubUser = (req, res, next) => {
   const { username } = req.body;
   axios.get(`https://api.github.com/users/${username}`).then(response => {
-    const { login, name, location, bio } = response.data;
+    const { login, name, location, bio, avatar_url } = response.data;
     const data = {
       login,
       name,
       location,
-      bio
+      bio,
+      avatar_url
     };
     res.json(data);
   });
@@ -79,12 +80,13 @@ const getGitHubRepos = (req, res, next) => {
 const getUserInfo = (req, res, next) => {
   const { username } = req.params;
   User.findOne({ githubUsername: username }).then(user => {
-    const { name, Repos, email, githubUsername } = user;
+    const { name, Repos, email, githubUsername, avatar_url } = user;
     res.json({
       name,
       Repos,
       email,
-      githubUsername
+      githubUsername,
+      avatar_url
     });
   });
 };
@@ -92,12 +94,13 @@ const getUserInfo = (req, res, next) => {
 const getUserInfoEmail = (req, res, next) => {
   const { userEmail } = req.params;
   User.findOne({ email: userEmail }).then(user => {
-    const { name, Repos, email, githubUsername } = user;
+    const { name, Repos, email, githubUsername, avatar_url } = user;
     res.json({
       name,
       Repos,
       email,
-      githubUsername
+      githubUsername,
+      avatar_url
     });
   });
 };

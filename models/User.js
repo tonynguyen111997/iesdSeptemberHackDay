@@ -32,6 +32,9 @@ const userSchema = new Schema({
   },
   Repos: {
     type: [Object]
+  },
+  avatar_url: {
+    type: String
   }
 });
 
