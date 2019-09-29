@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import { Button } from 'reactstrap';
+import React, { Component } from 'react';
+//import PropTypes from 'prop-types';
 import ProfilePage from '../../components/pages/ProfilePage/ProfilePage';
-
-export default class Dashboard extends Component {
+class Profile extends Component {
   state = {
     login: 'dhuan008',
     name: 'David Huang',
@@ -10,12 +9,11 @@ export default class Dashboard extends Component {
     email: 'daveshuang@gmail.com',
     location: null,
     bio: 'Smashing the stack for fun and profit'
-  }
+  };
+  
   render() {
-    return (
-      <div className="text-center">
-        <ProfilePage {...this.state} />
-      </div>
-    );
+    console.log('sate', this.state)
+    return <ProfilePage info={this.state} />;
   }
 }
+export default Profile;
