@@ -102,6 +102,10 @@ const Register = ({ register, registerError, message }) => {
                           errors.password = "Required";
                         }
 
+                        if (!values.githubUsername) {
+                          errors.githubUsername = "Required";
+                        }
+
                         return errors;
                       }}
                       onSubmit={(values, { setSubmitting }) => {
@@ -160,6 +164,7 @@ const Register = ({ register, registerError, message }) => {
                               </small>
                             </div>
                           </FormGroup>
+
                           <FormGroup>
                             <InputGroup className="input-group-alternative">
                               <InputGroupAddon addonType="prepend">
@@ -180,11 +185,38 @@ const Register = ({ register, registerError, message }) => {
                               />
                             </InputGroup>
                           </FormGroup>
+                          <FormGroup>
+                            <div className="text-center">
+                              <small className="text-warning">
+                                {errors.password && touched.password && errors.password}
+                              </small>
+                            </div>
+                          </FormGroup>
+                          <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="fa fa-github" />
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Field
+                                name="githubUsername"
+                                placeholder="Github Username"
+                                render={({ field }) => (
+                                  <Input
+                                    placeholder="Github Username"
+                                    type="text"
+                                    {...field}
+                                  />
+                                )}
+                              />
+                            </InputGroup>
+                          </FormGroup>
                           <div className="text-center">
                             <small className="text-warning">
-                              {errors.password &&
-                                touched.password &&
-                                errors.password}
+                              {errors.githubUsername &&
+                                touched.githubUsername &&
+                                errors.githubUsername}
                             </small>
                           </div>
                           <Row className="my-4">
