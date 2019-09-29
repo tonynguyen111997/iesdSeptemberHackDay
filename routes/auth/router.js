@@ -1,37 +1,13 @@
-const axios = require("axios");
 const authController = require("./controller");
 
 module.exports = app => {
   app.post("/api/register", authController.register);
 
-  app.post("/api/user/repo", (req, res) => {
-    const { username } = req.body;
-    console.log("TEST");
+  app.post("/api/user/repo", authController.getGitHubRepos);
 
-    axios
-      .get(`https://api.github.com/users/${username}/repos`)
-      .then(response => {
-        // res.json(response.data.language);
-        return response.data.map(repo => {
-          const project = {
-            repoName: repo.name,
-            topLanguage: repo.language
-          };
-          console.log({
-            repoName: repo.name,
-            repoLanguage: repo.language
-          });
-          return project;
-        });
-      })
-      .then(response => {
-        res.send(response);
-      })
-      .catch(err => {
-        res.send(err);
-      });
-  });
+  app.post("/dashboard", authController.getGitHubUser);
 
+<<<<<<< HEAD
   app.post("/dashboard", (req, res) => {
     const { username } = req.body;
     axios.get(`https://api.github.com/users/${username}`).then(response => {
@@ -46,9 +22,9 @@ module.exports = app => {
       res.json(data);
     });
   });
+=======
+  app.get("/api/user/:username", authController.getUserInfo);
+>>>>>>> c6b480c475dd5092f4a9f872ea8ff576a632ec1a
 
-  // app.post("/oauth", (req, res) => {
-  //   const requestToken = req.query.code;
-
-  // })
+  app.get("/api/email/:userEmail", authController.getUserInfoEmail);
 };
