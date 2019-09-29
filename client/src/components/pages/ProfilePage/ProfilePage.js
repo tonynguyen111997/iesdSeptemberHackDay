@@ -12,15 +12,30 @@ import axios from 'axios';
 export default class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+        bio: "",
+        location: "",
+        login: "",
+        name: ""
+    }
   }
+
 
   submitUsername = (e) => {
       e.preventDefault();
       const userInput = document.getElementById("usernameInput");
-      axios.post("localhost:5000/dashboard", {
+      axios.post("/dashboard", {
           username: userInput.value
       }).then(response => {
           console.log(response);
+          const data = response.data;
+          const { bio, location, login, name, avatar_url } = data;
+          this.setState({
+              bio,
+              location,
+              login,
+              name
+          })
       })
   }
 
@@ -119,16 +134,16 @@ export default class ProfilePage extends React.Component {
                      </Row>
                      <div className="text-center mt-5">
                        <h3>
-                         {this.props.name}
+                         {this.state.name}
                          {/* <span className="font-weight-light">, 27</span> */}
                        </h3>
                        <div className="h6 font-weight-300">
                          <i className="ni location_pin mr-2" />
-                         {this.props.login}
+                         {this.state.login}
                        </div>
                        <div className="h6 mt-4">
                          <i className="ni business_briefcase-24 mr-2" />
-                         {this.props.location}
+                         {this.state.location}
                        </div>
                        <div>
                          <i className="ni education_hat mr-2" />
@@ -142,7 +157,7 @@ export default class ProfilePage extends React.Component {
                        <Row className="justify-content-center">
                          <Col lg="9">
                            <p>
-                           {this.props.bio}
+                           {this.state.bio}
                            </p>
                            {/* <a href="#" onClick={e => e.preventDefault()}> */}
                              

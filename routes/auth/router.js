@@ -35,12 +35,13 @@ module.exports = app => {
   app.post("/dashboard", (req, res) => {
     const { username } = req.body;
     axios.get(`https://api.github.com/users/${username}`).then(response => {
-      const { login, name, location, bio } = response.data;
+      const { login, name, location, bio, avatar_url } = response.data;
       const data = {
         login,
         name,
         location,
-        bio
+        bio,
+        avatar_url
       };
       res.json(data);
     });
