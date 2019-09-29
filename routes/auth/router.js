@@ -6,8 +6,6 @@ module.exports = app => {
 
   app.post("/api/user/repo", (req, res) => {
     const { username } = req.body;
-    console.log("TEST");
-
     axios
       .get(`https://api.github.com/users/${username}/repos`)
       .then(response => {
