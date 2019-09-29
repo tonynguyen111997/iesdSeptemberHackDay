@@ -4,7 +4,7 @@ import history from "../../utils/history";
 import authClient from "../../auth/authClient";
 
 import Landing from "../../components/pages/Landing/Landing";
-import Signin from "../Signin/Signin";
+import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Dashboard from "../Dashboard/Dashboard";
 
@@ -16,7 +16,8 @@ export default class App extends Component {
     message: ""
   };
 
-  signin = (email, password) => {
+  signin = (values) => {
+    
     API_signin()
       .then(response => {})
       .catch(error => {});
@@ -54,9 +55,9 @@ export default class App extends Component {
         <Route path="/" exact component={Landing} />
         <Route path="/dashboard" exact component={Dashboard} />
         <Route
-          path="/signin"
+          path="/login"
           exact
-          render={() => <Signin signin={this.signin} />}
+          render={() => <Login signin={this.signin} />}
         />
         <Route
           path="/register"
