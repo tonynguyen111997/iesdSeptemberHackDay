@@ -58,7 +58,7 @@
     "jwt-simple": "^0.5.6",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.2",
